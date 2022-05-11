@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\User;
 use App\Good;
 use App\Cart;
+use App\Rank;
 
 class User extends Authenticatable
 {
@@ -154,6 +155,13 @@ class User extends Authenticatable
   
     
     
+        public function rank()
+    {
+          $user_Id = $this->id; 
+          $newtable = User::join('ranks', function ($join){
+              $join->on('users.rank_num', '=', 'ranks.id');});
+          return ($newtable->where('users.id', '=', $user_Id)->get()[0]);
+    }
     
     
     

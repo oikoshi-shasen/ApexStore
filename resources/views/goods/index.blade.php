@@ -20,7 +20,7 @@
                             <form action="/good/detail" method="get">
                                 <h3>{{$good->name}}</h3>
                                 <img class="img" src="{{asset($good->picture)}}" alt="">
-                                <div class="discount">値段:<span> ${{$good->price * Auth::user()->rank}}</span></div>
+                                <div class="discount">値段:<span> ${{$good->price * Auth::user()->rank_num}}</span></div>
                                 <input type="hidden" name="good_id" value={{$good->id}}>
                                 <input type="submit" class="submit" value="詳細">
                             </form>

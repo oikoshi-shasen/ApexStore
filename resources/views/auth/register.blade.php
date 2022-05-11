@@ -34,6 +34,7 @@
                         {!! Form::label('rank_num','Rank') !!}
                         {!! Form::select('rank_num', ['7' => 'ブロンズ', '6' => 'シルバー','5' => 'ゴールド','4' => 'プラチナ','3' => 'ダイヤ','2' => 'マスター','1' => 'プレデター'], '5', ['class' => 'form-control']) !!}
                     </div>
+
     
                     {!! Form::submit('Sign up', ['class' => 'btn btn-primary btn-block']) !!}
                 {!! Form::close() !!}

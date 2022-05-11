@@ -16,7 +16,7 @@
                 <h4>{{$good->explanation}}</h4>
             </div>
             <div class="detail_price">
-                <h4>${{$good->price * Auth::user()->rank}}</h4>
+                <h4>${{$good->price * Auth::user()->rank_num}}</h4>
             </div>
             <div class="detail_btn">
                 @if($exist==false)

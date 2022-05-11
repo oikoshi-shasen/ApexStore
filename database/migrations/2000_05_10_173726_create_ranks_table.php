@@ -13,9 +13,9 @@ class CreateRanksTable extends Migration
      */
     public function up()
     {
-        Schema::create('rank', function (Blueprint $table) {
+        Schema::create('ranks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->TINYINT('rank_num');
+            $table->tinyInteger('rank_num');
             $table->string('rank');
             $table->timestamps();
 
@@ -29,6 +29,6 @@ class CreateRanksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rank');
+        Schema::dropIfExists('ranks');
     }
 }

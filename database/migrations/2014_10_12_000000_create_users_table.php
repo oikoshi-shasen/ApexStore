@@ -19,12 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->TINYINT('rank_num');
-            $table->TINYINT('role');
+            $table->unsignedBigInteger('rank_num');
+            $table->tinyInteger('role')->default(9);
             $table->rememberToken();
             $table->timestamps();
             
-            $table->foreign('rank_num')->references('rank_num')->on('rank')->onDelete('cascade');
+            $table->foreign('rank_num')->references('id')->on('ranks')->onDelete('cascade');
         });
     }
 

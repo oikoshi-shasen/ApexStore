@@ -29,7 +29,7 @@
                 <li class="nav-item nav_img">
                     <a href="/user">
                         <!--<i class="fas fa-user" style="color:#fff;"></i>-->
-                        <img class="rank_img" src="{{asset('/img/Rank_badge/'.Auth::user()->rank.'.png')}}">
+                        <img class="rank_img" src="{{asset('/img/Rank_badge/'.Auth::user()->rank()->rank.'.png')}}">
                     </a>
                 </li>
                 <li class="nav-item nav_img">

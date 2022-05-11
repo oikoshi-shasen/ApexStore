@@ -34,12 +34,12 @@
                             </tr>
                             <?php $total=0 ?>
                             @foreach($goods as $good)
-                                <?php $subtotal= $good->price * $good->quantity *Auth::user()->rank;
+                                <?php $subtotal= $good->price * $good->quantity *Auth::user()->rank_num;
                                       $total += $subtotal;
                                 ?>
                                 <tr>
                                     <td>{{$good->name}}</td>
-                                    <td>${{$good->price* Auth::user()->rank}}</td>
+                                    <td>${{$good->price* Auth::user()->rank_num}}</td>
                                     <td>{{$good->quantity}}</td>
                                     <td>${{$subtotal}}</td>
                                 </tr>

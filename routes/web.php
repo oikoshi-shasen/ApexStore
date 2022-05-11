@@ -16,7 +16,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('user', 'UsersController@detail');
+    Route::get('/user', 'UsersController@detail');
     Route::get('carts', 'CartsController@contentsOfCart');
     Route::get('carts/delete', 'CartsController@deleteCartsGood')->name('delete.cartsgood');
     Route::get('goods', 'GoodsController@index')->name('goods_index');
