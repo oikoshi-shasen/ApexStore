@@ -1,0 +1,170 @@
+body{
+    background-image: url('/img/logic1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+}
+
+
+
+.detail_content{
+    padding-top: 50px; 
+    margin:0 auto; 
+}
+
+.detail_left{
+    position: relative;
+    width: 26%;
+    background: rgba( 255, 255, 255, 0.65 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.55 );
+    border-radius: 10px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+    text-align: center;
+    border-radius: 20px;
+    margin:0 auto; 
+    margin-bottom: 20px;
+    min-height: 45vh;
+}
+
+.detail_name h2{
+    color: black;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size:30px;
+}
+.detail_left img{
+     object-fit: cover;
+     min-height: 30vh;
+}
+.detail_right{
+    color: white;
+    text-align:center; 
+}
+.submit {
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  font-size     : 16pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 4px 20px;   /* 余白       */
+  background    : rgba(0, 11, 102, 0.7);     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .4s;         /* なめらか変化 */
+  box-shadow    : 5px 5px 5px #666666;  /* 影の設定 */
+  border        : 2px solid rgba(255, 255, 255, 0.3); 
+}
+.submit:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : rgba(0, 0, 102, 0.95);     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}
+
+
+
+
+
+
+
+
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  text-align:center;
+  height: 33.33px;
+  margin-top :10px;
+  width: 150px;
+  background:  rgba(0, 11, 102, 0.7);
+  color:#ffffff;
+  border        : 2px solid rgba(255, 255, 255, 0.3);    
+  border-radius: 3px;
+  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  margin: auto 0 0 0;
+    transform: translateY(8px);
+}
+
+.dropdown:before, .dropdown:after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 4px dashed;
+  border-color: #888888 transparent;
+  pointer-events: none;
+}
+
+.dropdown:before {
+  border-bottom-style: solid;
+  border-top: none;
+}
+
+.dropdown:after {
+  margin-top: 7px;
+  border-top-style: solid;
+  text-align: center;
+  border-bottom: none;
+}
+
+.dropdown-select {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  height: 27px;
+  line-height: 14px;
+  color: white;
+  background: #f2f2f2; /* Fallback for IE 8 */
+  background: rgba(0, 0, 0, 0); /* "transparent" doesn't work with Opera */
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  width:100px;
+}
+
+.dropdown-select:focus {
+  z-index: 3;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+  outline: 2px solid #49aff2;
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.dropdown-select > option {
+  margin: 3px;
+  text-align: center;
+  text-shadow: none;
+  background:rgba(0, 11, 102, 0.7);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Fix for IE 8 putting the arrows behind the select element. */
+
+.lt-ie9 .dropdown {
+  z-index: 1;
+}
+
+.lt-ie9 .dropdown-select {
+  z-index: -1;
+}
+
+.lt-ie9 .dropdown-select:focus {
+  z-index: 3;
+}
+
+/* Dirty fix for Firefox adding padding where it shouldn't. */
+
+
+

@@ -1,0 +1,7 @@
+body{
+    background-image: url('../img/top_sample.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 110vh;
+    background-position: center;
+}

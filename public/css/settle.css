@@ -1,0 +1,81 @@
+body{
+    background-image: url('../img/cart_back.png');
+    background-position: center;
+    background-color:rgba(255,255,255,0.9);
+    background-blend-mode:lighten;   
+    min-height: 100vh;
+}
+header{
+    height: 60px;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin:0 auto;
+}
+
+.table{
+    padding-top:50px;
+    text-align: center
+}
+table{
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table th,table td{
+  padding: 10px 0;
+  font-size:20px;
+  text-align: center;
+}
+
+table tr {
+    background-color: #fff;
+}
+
+table td {
+	background: #eee;
+}
+table tr:nth-child(odd) td {
+	background: #fff;
+}
+
+.credit_card{
+    margin:0 auto;
+    text-align:center;
+}
+.form_area form{
+    
+    margin-left:30px;
+    
+}
+.form_text{
+    width:300px;
+}
+
+.submmit_btn{
+    margin:0 auto;
+}
+
+.submit{
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  font-size     : 18pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 12px 20px;   /* 余白       */
+  background    : rgba(89, 89, 89, 0.97);     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  box-shadow    : 7px 7px 6px #666666;  /* 影の設定 */
+  border        : 2px solid rgba(89, 89, 89, 0.97);    /* 枠の指定 */
+}
+.submit:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : rgba(89, 89, 89, 0.97);     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}

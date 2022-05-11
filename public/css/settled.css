@@ -1,0 +1,62 @@
+body{
+    background-image: url('../img/thank.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    min-height: 100vh;
+}
+header{
+    height: 60px;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin:0 auto;
+}
+
+main{
+    padding-top:50px;
+}
+.container{
+    margin:0 auto;
+}
+.container h2{
+    width:100%;
+    text-align: center;
+    background-color:rgba(255, 255, 255, 0.7);
+    font-size:50px;
+      border-radius : 5%;   
+}
+.container form{
+    margin:0 auto;
+    
+}
+.back{
+    display: flex;
+    text-align:center;
+}
+
+.back form{
+    margin: 0 auto;
+}
+.submit{
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  font-size     : 18pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 12px 20px;   /* 余白       */
+  background    : rgba(89, 89, 89, 0.97);     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  box-shadow    : 7px 7px 6px #666666;  /* 影の設定 */
+  border        : 2px solid rgba(89, 89, 89, 0.97);    /* 枠の指定 */
+}
+.submit:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : rgba(89, 89, 89, 0.97);     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}

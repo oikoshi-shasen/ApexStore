@@ -1,0 +1,87 @@
+body{
+    background-image: url('../img/logic1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+}
+header{
+    height: 60px;
+}
+
+.img{
+    height: 200px;
+    width:  70%;
+}
+
+.container{
+    max-width: 1150px;
+    margin: auto;
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.card-area{
+    margin:50px auto;
+}
+.card_item{
+    position: relative;
+    width: 30%;
+    background: rgba( 255, 255, 255, 0.45 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    text-align: center;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.card_item:hover {
+	top:-5px;
+    transition: .8s;
+	box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+}
+.card_item img{
+    object-fit: cover;
+}
+h3{
+    font-weight: bold;
+    padding: 20px;
+}
+.discount{
+    padding: 10px 0 20px 0;
+    font-size: 18px;
+}
+.discount span{
+    font-weight: bold;
+    font-size: 21px;
+}
+.card_img{
+    margin: auto;
+    width: 80%;
+}
+
+.submit {
+  display       : inline-block;
+  border-radius : 5%;          /* 角丸       */
+  font-size     : 16pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 4px 31px;   /* 余白       */
+  background    : rgba(0, 11, 102, 0.6);     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .6s;         /* なめらか変化 */
+  box-shadow    : 5px 5px 5px #666666;  /* 影の設定 */
+  border        : 2px solid rgba(0, 0, 102, 0.7);    /* 枠の指定 */
+  margin-bottom: 30px;
+}
+.submit:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : rgba(0, 0, 102, 0.95);     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}
