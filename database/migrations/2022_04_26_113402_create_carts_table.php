@@ -18,13 +18,14 @@ class CreateCartsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('good_id');
             $table->unsignedBigInteger('quantity');
+            $table->unsignedBigInteger('good_id');
             $table->timestamps();
             
                         // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('good_id')->references('id')->on('goods')->onDelete('cascade');
             
-            $table->unique(['user_id', 'good_id']);
+         
         });
     }
 

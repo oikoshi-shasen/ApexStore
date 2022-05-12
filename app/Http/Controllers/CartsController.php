@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\User;
 use App\Good;
@@ -13,7 +14,6 @@ class CartsController extends Controller
         $user = \Auth::user();
         $goods = $user->feed_carts();
         $count_goods = $user->countCarts();
-        // dd($count_goods);
         return view('carts.contents')->with('goods',$goods)->with('count_goods',$count_goods);
     }
     
@@ -25,21 +25,25 @@ class CartsController extends Controller
         return view('carts.settle')->with('goods',$goods);
     }
     
-    public function settled(){
+    public function settled(Request $request){
         $user = \Auth::user();
+        $request->validate([
+            'card_num' => ['required', 'digits_between:13,16'],
+            'password' => ['required'],
+            ]);
         $goodIds = $user->feedGoodIds();
         $user->deleteCartsGoods($goodIds);
-        // ->orderBy('created_at','desc');
-        // dd($goods);
         return view('carts.settled');
     }
     
         public function deleteCartsGood(Request $request){
         $user = \Auth::user();
         $user->deleteCartsGood($request->good_id);
-        $goods = $user->feed_carts();
-        return view('carts.contents')->with('goods',$goods);
-    }
+        // $goods = $user->feed_carts();
+        // $count_goods = $user->countCarts();
+        // return view('carts.contents')->with('goods',$goods)->with('count_goods',$count_goods);
+        return redirect()->route('cart.contents');
+        }
 
 
 }

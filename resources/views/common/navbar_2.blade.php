@@ -3,6 +3,7 @@
         .nav_img{
             width:40px;
             transform:translateY(10px);
+            margin-left:15px;
         }
         .nav_img a svg{
             font-size:21px;
@@ -15,7 +16,7 @@
             height:50px;
             width:50px;
             position:absolute;
-            right:15px;
+            right:2.3px;
             top:5px;
         }
         </style>
@@ -26,6 +27,13 @@
 
         <div class="collapse navbar-collapse header-height" id="nav-bar">
             <ul class="navbar-nav ml-auto">
+                @if(Auth::user()->role<=5)
+                <li class="nav-item nav_img">
+                    <a href="/goods/register">
+                       <i class="fas fa-gift" style="color:#fff;"></i>
+                    </a>
+                </li>
+                @endif
                 <li class="nav-item nav_img">
                     <a href="/user">
                         <!--<i class="fas fa-user" style="color:#fff;"></i>-->
@@ -37,7 +45,6 @@
                         <i class="fas fa-shopping-cart" style="color:#fff;"></i>
                     </a>
                 </li>
-
                  <li class="nav-item">{!! link_to_route('logout.get', 'Logout', [], ['class' => 'nav-link']) !!}</li>
             </ul>
         </div>

@@ -31,8 +31,23 @@ body{
     color: black;
     margin-bottom: 20px;
     margin-top: 30px;
+    font-weight: bold;
+    font-size:30px;
+    
 }
 .user_card img{
      object-fit: cover;
      min-height: 30vh;
+}
+.detail_email{
+    margin-top: 20px;
+}
+.detail_rank{
+    margin-top: 10px;
+}
+.detail_email h4{
+    font-size:28px;
+}
+.detail_rank h4{
+    font-size:28px;
 }
