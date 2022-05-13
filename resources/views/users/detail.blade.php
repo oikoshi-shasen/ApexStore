@@ -9,7 +9,9 @@
             <div class="detail_name">
                 <h2>{{$user->name}}</h2>
             </div>
+            <div class="img">
              <img src="{{asset('/img/Rank_badge/'.$rank.'.png')}}" alt="アイコン">
+             </div>
             <div class="detail_email">
                 <h4>email:　{{$user->email}}</h4>
             </div>

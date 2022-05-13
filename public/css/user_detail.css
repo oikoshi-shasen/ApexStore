@@ -9,12 +9,13 @@ body{
 
 .detail_content{
     padding-top: 50px; 
-    margin:0 auto; 
+    margin:0 auto;
+    width:90%;
 }
 
 .user_card{
     position: relative;
-    width: 30%;
+    width: 40%;
     background: rgba( 255, 255, 255, 0.45 );
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.55 );
     border-radius: 10px;
@@ -35,9 +36,14 @@ body{
     font-size:30px;
     
 }
-.user_card img{
-     object-fit: cover;
-     min-height: 30vh;
+.img{
+    object-fit: cover;
+    min-height: 30vh;
+    width:80%;
+    margin:0 auto;
+}
+.img img{
+    width:100%;
 }
 .detail_email{
     margin-top: 20px;

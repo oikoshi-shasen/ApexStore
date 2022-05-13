@@ -6,7 +6,7 @@
 @section('content')
    <div class="contents">
        <div class="dark">
-      <h1 class="noentext">注文履歴</h1>
+      <h1 style="color:white;">注文履歴</h1>
       </div>
       <?php $total = 0;?>
       @foreach($historys as $history)
