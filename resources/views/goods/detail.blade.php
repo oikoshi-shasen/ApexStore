@@ -21,7 +21,7 @@
             <div class="detail_btn">
                 @if($exist==false)
                 <form method="post">
-                            <form method="post" id='good_quantity'>
+                            <form method="post" id='good_quantity' action="/good/detail">
                                 @csrf
                             <div class="dropdown">
                                 <select class="dropdown-select" name="quantity">
