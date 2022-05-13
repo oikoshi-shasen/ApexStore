@@ -17,5 +17,10 @@ class UsersController extends Controller
         $rank = $user->rank()->rank;
         return view('users.detail')->with('user',$user)->with('rank',$rank);
     }
-        
+    
+    public function history(){
+        $user = \Auth::user();
+        $historys = $user->getHistory();
+        return view('users.history')->with('historys',$historys)->with('user',$user);
+    }    
 }

@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','rank_num',
+        'name', 'email', 'password','rank_num','created_at',
     ];
 
     /**
@@ -47,21 +47,22 @@ class User extends Authenticatable
     public function inCarts()
     {
         return $this->belongsToMany(Good::class,'carts','user_id','good_id')
-            ->withPivot(['quantity']);
+            ->withPivot(['quantity','sub_total','settled_flag']);
     }
     
       
         public function countCarts() 
     {
         $user_Id = $this->id; 
-        return Cart::where('user_id', '=', $user_Id)->count();
+        return Cart::where('user_id', '=', $user_Id)->where('settled_flag', '=', 0)->count();
     }
     
     
-    public function addCarts($goodId,$quantity) 
+    public function addCarts($goodId,$quantity,$goodPrice) 
     {
-        $userId = $this->id;
-        $this->inCarts()->attach($goodId,['quantity' => $quantity]);
+        $rank_num = $this->rank_num;
+        $sub_total = $rank_num * $goodPrice * $quantity;
+        $this->inCarts()->attach($goodId,['quantity' => $quantity , 'sub_total' => $sub_total ,'settled_flag' => 0,]);
     }
     
     
@@ -69,17 +70,18 @@ class User extends Authenticatable
     public function deleteCartsGoods($goodIds) 
     {
         $userId = $this->id;
-        foreach($goodIds as $goodId){
-            $this->inCarts()->detach($goodId);
-        }
-    }
+        $this->inCarts()->where('settled_flag','=',0)->update(['settled_flag' => 1]);
+     }
     
     public function deleteCartsGood($goodId) 
     {
         $userId = $this->id;
-        $this->inCarts()->detach($goodId);
+        // dd($this->inCarts()->where('goods.id','=',$goodId)->get());
+        // dd($this->inCarts());
+        //dd($goodId);
+        $carts_id = $this->inCarts()->wherePivot('good_id','=',$goodId)->wherePivot('settled_flag','=',0)->detach();
+        
     }
-    
     
     public function clearCart()
     {
@@ -106,9 +108,8 @@ class User extends Authenticatable
           $user_Id = $this->id; 
           $newtable = Good::join('carts', function ($join){
               $join->on('goods.id', '=', 'carts.good_id');});
-          return ($newtable->where('user_id', '=', $user_Id)->get());
+          return ($this->inCarts()->where('settled_flag','=',0)->get());
     }
-    
         // public function feed_carts()
         // {
         //   $goods_Id = $this->inCarts()->pluck('carts.good_id')->toArray();
@@ -123,13 +124,13 @@ class User extends Authenticatable
     
         public function feedGoodIds()
     {
-          return ($this->inCarts()->pluck('carts.good_id')->toArray());
+          return ($this->inCarts()->where('settled_flag',"=",0)->pluck('carts.good_id')->toArray());
     }
     
     
     
     public function isGoodInCarts($good_Id){
-         return $this->inCarts()->where('good_id', $good_Id)->exists();
+         return $this->inCarts()->where('good_id', $good_Id)->where('settled_flag',"=",0)->exists();
     } 
     
     
@@ -138,18 +139,28 @@ class User extends Authenticatable
     
     public function getGoodDetail($good_Id){
         $user_Id = $this->id; 
-        $newtable = Good::leftJoin('carts', function ($join){
+        $newtable = Good::Join('carts', function ($join){
         $join->on('goods.id', '=', 'carts.good_id');});
-        return ($newtable->where('good_id',$good_Id)->where('user_id', '=', $user_Id)->get());
+        return (
+            $newtable
+            ->where('good_id',$good_Id)
+            ->where('user_id', '=', $user_Id)
+            ->where('settled_flag', '=', 0)
+            ->get()
+                );
     }
     
     
-        public function changeQuantity($good_Id,$quantity) 
+        public function changeQuantity($good_Id,$quantity,$good_price) 
     {
         $user_Id = $this->id; 
+        $sub_total = $good_price * $this->rank_num * $quantity;
         $newtable = Good::leftJoin('carts', function ($join){
         $join->on('goods.id', '=', 'carts.good_id');});
-        $newtable->where('good_id',$good_Id)->where('user_id', '=', $user_Id)->update(['quantity' => $quantity]);
+        $newtable->where('good_id',$good_Id)
+        ->where('user_id', '=', $user_Id)
+        ->where('settled_flag', '=' ,0)
+        ->update(['quantity' => $quantity , 'sub_total' => $sub_total]);
     }
     
   
@@ -160,7 +171,18 @@ class User extends Authenticatable
           $user_Id = $this->id; 
           $newtable = User::join('ranks', function ($join){
               $join->on('users.rank_num', '=', 'ranks.id');});
-          return ($newtable->where('users.id', '=', $user_Id)->get()[0]);
+          return ($newtable->where('users.id', '=', $user_Id)->first());
+    }
+    
+    
+        public function getHistory(){
+            $newtable = Good::leftJoin('carts', function ($join){
+            $join->on('goods.id', '=', 'carts.good_id');});
+            $historys = $newtable->where('user_id', '=', $this->id)
+                                 ->where('settled_flag', '=' ,1)
+                                 ->orderBy('carts.created_at', 'desc')
+                                 ->get();
+            return ($historys);
     }
     
     

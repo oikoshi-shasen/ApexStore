@@ -1,0 +1,83 @@
+body{
+    background-image: url('../img/history.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+}
+.contents{
+    text-align:center; 
+    margin-bottom: 100px;
+    margin-top:50px;
+}
+.contents h1{
+    font-size:50px; 
+    font-weight:bold;
+    color: black;
+}
+.item-card{
+    width:90%;
+    background: rgba( 255, 255, 255, 0.85 );
+    margin:0 auto;
+    height: 220px;
+    margin-top:10px;
+    border-radius: 20px;
+}
+.card-top{
+    display: flex;
+    justify-content:space-between;
+    padding:0px 20px;
+    font-size:27.5px;
+    border-bottom:solid 2px;
+    border-bottom-color: black;
+}
+.date{
+
+    margin:auto 0.5%;
+    
+}
+.card-top-right{
+    display: flex;
+    align-items: center;
+    margin:auto 0.5%;
+    margin-top:2.5px;
+}
+.card-top-right h4{
+    margin-left:30px;
+    font-size:30px; 
+}
+.card-bottom{
+    display: flex;
+    height: 75%;
+    justify-content:space-between;
+    margin-top:2.5px;
+    
+}
+.item-img{
+    height: 100%;
+    margin-left:7.5%;
+    
+}
+
+.item-img img{
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+.item-text{
+    text-align:center;
+    margin:auto 7.5%;
+}
+.total-card{
+    background: rgba( 255, 255, 255, 0.85 );
+    margin:0 auto;
+    margin-top:10px;
+    width:20%;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    border-radius: 20px;
+}
+
+.total-card h3{
+    text-decoration: underline;
+}

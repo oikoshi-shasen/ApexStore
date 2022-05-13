@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::post('good/detail','GoodsController@addCarts');
     Route::get('/settle', 'CartsController@settle');
     Route::post('/settled', 'CartsController@settled');
+    Route::get('/history', 'UsersController@history');
 });
 
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {

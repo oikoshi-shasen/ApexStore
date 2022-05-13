@@ -55,26 +55,13 @@ class GoodsController extends Controller
         // dd($quantity);
         return view('goods.detail')->with('good',$good)->with('added_quantity')->with('exist',$isExist);//withでぶん投げる
     }
-    
-    public function detail_2($good_id)
-    {   
-        $user = \Auth::user();
-        $isExist = $user->isGoodInCarts($good_id);
-        if($isExist==false){
-            $good = Good::findOrFail($good_id);
-        }
-        else{
-            $good = $user->getGoodDetail($good_id)[0];
-        };
-        return view('goods.detail')->with('good',$good)->with('added_quantity')->with('exist',$isExist);//withでぶん投げる
-    }
-    
+
     
     
         public function addCarts(Request $request)
     {   
         $user = \Auth::user();
-        $user->addCarts($request->good_id,$request->quantity);
+        $user->addCarts($request->good_id,$request->quantity,$request->good_price);
         // $isExist = $user->isGoodInCarts($request->good_id);
         // if($isExist==false){
         //     $good = Good::findOrFail($request->good_id);
@@ -91,7 +78,7 @@ class GoodsController extends Controller
         public function changeQuantity(Request $request)
     {   
         $user = \Auth::user();
-         $user->changeQuantity($request->good_id,$request->quantity); 
+         $user->changeQuantity($request->good_id,$request->quantity,$request->good_price); 
         // $isExist = $user->isGoodInCarts($request->good_id);
         // if($isExist==false)
         // {

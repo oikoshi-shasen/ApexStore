@@ -34,14 +34,14 @@
                             </tr>
                             <?php $total=0 ?>
                             @foreach($goods as $good)
-                                <?php $subtotal= $good->price * $good->quantity *Auth::user()->rank_num;
-                                      $total += $subtotal;
+                                <?php 
+                                      $total += $good->pivot->sub_total;
                                 ?>
                                 <tr>
                                     <td>{{$good->name}}</td>
                                     <td>${{$good->price* Auth::user()->rank_num}}</td>
-                                    <td>{{$good->quantity}}</td>
-                                    <td>${{$subtotal}}</td>
+                                    <td>{{$good->pivot->quantity}}</td>
+                                    <td>${{$good->pivot->sub_total}}</td>
                                 </tr>
                             @endforeach
                             <tr>

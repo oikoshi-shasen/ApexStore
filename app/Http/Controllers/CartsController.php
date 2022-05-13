@@ -13,6 +13,7 @@ class CartsController extends Controller
     public function contentsOfCart(){
         $user = \Auth::user();
         $goods = $user->feed_carts();
+        // Auth::user()->inCarts as $good
         $count_goods = $user->countCarts();
         return view('carts.contents')->with('goods',$goods)->with('count_goods',$count_goods);
     }
@@ -39,9 +40,6 @@ class CartsController extends Controller
         public function deleteCartsGood(Request $request){
         $user = \Auth::user();
         $user->deleteCartsGood($request->good_id);
-        // $goods = $user->feed_carts();
-        // $count_goods = $user->countCarts();
-        // return view('carts.contents')->with('goods',$goods)->with('count_goods',$count_goods);
         return redirect()->route('cart.contents');
         }
 

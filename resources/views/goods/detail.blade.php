@@ -37,6 +37,7 @@
                             </div>
                                 <button class="submit" id="submit">カートに入れる</button>
                                 <input type="hidden" name="good_id" value={{$good->id}}>
+                                <input type="hidden" name="good_price" value={{$good->price}}>
                             </form>
                             <script>
                                 $('#submit').on('click', function(){
@@ -69,6 +70,7 @@
                                 <input type="submit" class="submit" value="カートに入れなおす">
 
                                 <input type="hidden" name="good_id" value={{$good->good_id}}>
+                                 <input type="hidden" name="good_price" value={{$good->price}}>
                             </form>
                 
                 @endif
