@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
         [
             'name' => 'Yudai',
+            'first_rank_num' => 2,
             'email' => 'yudai_sasaki@fandmnet.com',
             'password' => Hash::make('00000000'),
             'rank_num' => '1',
@@ -25,6 +26,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'm@m.m',
             'password' => Hash::make('00000000'),
             'rank_num' => '2',
+            'first_rank_num' => '2',
             'role' => '2',
         ],
         [
@@ -32,6 +34,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'h@h.h',
             'password' => Hash::make('00000000'),
             'rank_num' => '3',
+            'first_rank_num' => '3',
             'role' => '9',
         ],
         [
@@ -39,6 +42,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'g@g.g',
             'password' => Hash::make('00000000'),
             'rank_num' => '5',
+            'first_rank_num' => '5',
             'role' => '9',
         ],
         ]);

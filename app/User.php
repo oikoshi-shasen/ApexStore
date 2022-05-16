@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','rank_num','created_at',
+        'name', 'email', 'password','rank_num','total','created_at', 'first_rank_num'
     ];
 
     /**
@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    
+    static public $judgment_value = 500000;
     
     public function inCarts()
     {
@@ -70,7 +70,7 @@ class User extends Authenticatable
     public function deleteCartsGoods($goodIds) 
     {
         $userId = $this->id;
-        $this->inCarts()->where('settled_flag','=',0)->update(['carts.settled_flag' => 1,]);
+        $this->inCarts()->wherePivot('settled_flag','=',0)->update(['carts.settled_flag' => 1,]);
      }
     
     public function deleteCartsGood($goodId) 
@@ -184,6 +184,36 @@ class User extends Authenticatable
                                  ->get();
             return ($historys);
     }
+    
+        public function storeSum(){
+            $newtable = Good::leftJoin('carts', function ($join){
+                $join->on('goods.id', '=', 'carts.good_id');});
+                $sum = $newtable->where('user_id', '=', $this->id)
+                                 ->where('settled_flag', '=' ,1)
+                                 ->sum('sub_total');
+            User::where('id', '=', $this->id)->update(['total' => $sum ,]);
+            return $sum;
+        }
+        
+        public function promoteRank($total){
+            $rank_num = $this->rank_num;
+            $promote_num = floor($total / Self::$judgment_value);
+            $new_rank_num = (int)($this->first_rank_num - $promote_num);
+            if($new_rank_num < 1){
+                $new_rank_num = 1;
+            }
+            User::where('id','=',$this->id)->update(['rank_num' => $new_rank_num]);
+        }
+    
+    
+        public function moneyOfCart(){
+            $newtable = Good::leftJoin('carts', function ($join){
+                $join->on('goods.id', '=', 'carts.good_id');});
+            $money_of_cart = $newtable->where('user_id', '=', $this->id)
+                                 ->where('settled_flag', '=' ,0)
+                                 ->sum('sub_total');
+            return $money_of_cart;
+        }
     
     
     

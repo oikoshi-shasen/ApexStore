@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Good;
+use App\Rank;
+use App\Cart;
 
 
 class CartsController extends Controller
@@ -13,16 +15,19 @@ class CartsController extends Controller
     public function contentsOfCart(){
         $user = \Auth::user();
         $goods = $user->feed_carts();
-        // Auth::user()->inCarts as $good
         $count_goods = $user->countCarts();
-        return view('carts.contents')->with('goods',$goods)->with('count_goods',$count_goods);
+        $money_of_cart = $user->moneyOfCart();
+        $balance = (User::$judgment_value)-((\Auth::user()->total)%(User::$judgment_value));
+        $neo_balance = $balance - $money_of_cart;
+        return view('carts.contents')
+            ->with('goods',$goods)
+            ->with('count_goods',$count_goods)
+            ->with('neo_balance',$neo_balance);
     }
     
     public function settle(){
         $user = \Auth::user();
         $goods = $user->feed_carts();
-        // ->orderBy('created_at','desc');
-        // dd($goods);
         return view('carts.settle')->with('goods',$goods);
     }
     
@@ -34,6 +39,8 @@ class CartsController extends Controller
             ]);
         $goodIds = $user->feedGoodIds();
         $user->deleteCartsGoods($goodIds);
+        $total = $user->storeSum();
+        $user->promoteRank($total);
         return view('carts.settled');
     }
     

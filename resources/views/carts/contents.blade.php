@@ -51,6 +51,15 @@
                     <!--        </div>-->
                     <!--    @endforeach-->
                     <!--</div>-->
+                    <div class="rank-up">
+                        @if(Auth::user()->rank_num != 1)
+                            @if($neo_balance > 0)
+                                <h2>あと${{$neo_balance}}でランクアップ！</h2>
+                            @else
+                                <h3>{{ceil((abs($neo_balance)/App\User::$judgment_value)) }}ランクアップ確定！</h3>
+                            @endif
+                        @endif
+                    </div>
                     <div class="toSettle">
                         <form action="/settle" method="get">
                             <input type="submit" class="settle_btn" value="決済へ進む">
@@ -60,6 +69,9 @@
             @else
                 <div class="non-goods">
                     <h1>商品がありません</h1>
+                        @if(Auth::user()->rank_num != 1)
+                 <h3>あと${{$neo_balance}}でランクアップ！</h3>
+                        @endif
                     <div class="to-goods-index">
                         <form action="/goods" method="get">
                             <input type="submit" class="settle_btn" value="商品一覧に戻る">

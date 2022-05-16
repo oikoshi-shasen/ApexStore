@@ -19,8 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('first_rank_num');
             $table->unsignedBigInteger('rank_num');
             $table->tinyInteger('role')->default(9);
+            $table->unsignedBigInteger('total')->default(0);
             $table->rememberToken();
             $table->timestamps();
             
