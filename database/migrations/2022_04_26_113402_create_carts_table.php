@@ -20,8 +20,8 @@ class CreateCartsTable extends Migration
             $table->unsignedBigInteger('quantity');
             $table->unsignedBigInteger('sub_total');
             $table->tinyInteger('settled_flag')->comment('購入済なら1　未会計なら0');;
-            $table->timestamp('updated_at')->useCurrent();
-            $table->timestamp('created_at')->useCurrent(); 
+            $table->timestamp('updated_at')->useCurrent()->nullable();
+            $table->timestamp('created_at')->useCurrent()->nullable(); 
             
                         // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

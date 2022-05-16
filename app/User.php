@@ -70,7 +70,7 @@ class User extends Authenticatable
     public function deleteCartsGoods($goodIds) 
     {
         $userId = $this->id;
-        $this->inCarts()->wherePivot('settled_flag','=',0)->update(['carts.settled_flag' => 1,]);
+        $this->inCarts()->wherePivot("settled_flag",'=',0)->update(["settled_flag" => 1,]);
      }
     
     public function deleteCartsGood($goodId) 
@@ -79,7 +79,7 @@ class User extends Authenticatable
         // dd($this->inCarts()->where('goods.id','=',$goodId)->get());
         // dd($this->inCarts());
         //dd($goodId);
-        $carts_id = $this->inCarts()->wherePivot('good_id','=',$goodId)->wherePivot('settled_flag','=',0)->detach();
+        $carts_id = $this->inCarts()->wherePivot("good_id",'=',$goodId)->wherePivot("settled_flag",'=',0)->detach();
         
     }
     
@@ -124,13 +124,13 @@ class User extends Authenticatable
     
         public function feedGoodIds()
     {
-          return ($this->inCarts()->where('settled_flag',"=",0)->pluck('carts.good_id')->toArray());
+          return ($this->inCarts()->where('settled_flag','=',0)->pluck('carts.good_id')->toArray());
     }
     
     
     
     public function isGoodInCarts($good_Id){
-         return $this->inCarts()->where('good_id', $good_Id)->where('settled_flag',"=",0)->exists();
+         return $this->inCarts()->where('good_id', $good_Id)->where('settled_flag','=',0)->exists();
     } 
     
     
@@ -156,11 +156,11 @@ class User extends Authenticatable
         $user_Id = $this->id; 
         $sub_total = $good_price * $this->rank_num * $quantity;
         $newtable = Good::leftJoin('carts', function ($join){
-        $join->on('goods.id', '=', 'carts.good_id');});
-        $newtable->where('good_id',$good_Id)
-        ->where('user_id', '=', $user_Id)
-        ->where('settled_flag', '=' ,0)
-        ->update(['quantity' => $quantity , 'sub_total' => $sub_total]);
+        $join->on("goods.id", '=', "carts.good_id");});
+        $newtable->where("good_id",$good_Id)
+        ->where("user_id", '=', $user_Id)
+        ->where("settled_flag", '=' ,0)
+        ->update(["quantity" => $quantity , "sub_total" => $sub_total]);
     }
     
   
