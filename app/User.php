@@ -70,7 +70,7 @@ class User extends Authenticatable
     public function deleteCartsGoods($goodIds) 
     {
         $userId = $this->id;
-        $this->inCarts()->wherePivot("settled_flag",'=',0)->update(["settled_flag" => 1,]);
+        $this->inCarts()->wherePivot("settled_flag",'=',0)->update(["carts.settled_flag" => 1,]);
      }
     
     public function deleteCartsGood($goodId) 
@@ -110,16 +110,7 @@ class User extends Authenticatable
               $join->on('goods.id', '=', 'carts.good_id');});
           return ($this->inCarts()->where('settled_flag','=',0)->get());
     }
-        // public function feed_carts()
-        // {
-        //   $goods_Id = $this->inCarts()->pluck('carts.good_id')->toArray();
-        //   $user_Id = $this->id; 
-        //   $newtable = Good::leftJoin('carts', function ($join){
-        //       $join->on('goods.id', '=', 'carts.good_id');});
-        //   return ($newtable->whereIn('good_id',$goods_Id)->where('user_id', '=', $user_Id)->get());
-            
-        // }
-    
+
     
     
         public function feedGoodIds()

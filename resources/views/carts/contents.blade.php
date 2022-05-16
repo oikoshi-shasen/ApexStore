@@ -6,6 +6,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
           <link rel="stylesheet" href="css/cart_contents.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <script type="text/javascript"> 
+        function check(){
+    	    if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+    		    return true; // 「OK」時は送信を実行
+    	    }
+	    else{ // 「キャンセル」時の処理
+    		    window.alert('キャンセルされました'); // 警告ダイアログを表示
+    		    return false; // 送信を中止
+    		    }
+    }
+
+</script>
         
     </head>
 
@@ -35,22 +47,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <!--<hr>-->
-                    <!--<div class="flex card-area">-->
-                    <!--    @foreach($goods as $good)-->
-                    <!--        <div class="card_item">-->
-                    <!--            <a href="/good/detail/{{$good->good_id}}">{{$good->name}}<a>-->
-                    <!--            <br>-->
-                    <!--            <img src="{{asset($good->picture)}}" alt="">-->
-                    <!--            <div class="discount">値段：<span>{{$good->price}}</span></div>-->
-                    <!--            <div class="discount">数量：<span>{{$good->quantity}}</span></div>-->
-                    <!--            <form action="{{ route('delete.cartsgood') }}">-->
-                    <!--                <input class="submit"type="submit" value="商品を取り消す">-->
-                    <!--                <input type="hidden" name="good_id" value={{$good->good_id}}>-->
-                    <!--            </form>-->
-                    <!--        </div>-->
-                    <!--    @endforeach-->
-                    <!--</div>-->
                     <div class="rank-up">
                         @if(Auth::user()->rank_num != 1)
                             @if($neo_balance > 0)
@@ -61,9 +57,23 @@
                         @endif
                     </div>
                     <div class="toSettle">
-                        <form action="/settle" method="get">
-                            <input type="submit" class="settle_btn" value="決済へ進む">
+                        <form action="/settle" method="get" >
+                            <input type="submit" id="toSettle" class="settle_btn" value="決済へ進む" >
                         </form>
+                        <script>
+                            const func1 = () => {
+                                let bar = {{ $neo_balance }};
+                                if(window.confirm('送信してよろしいですか？')==true)
+                                    {
+                                    return true;
+                                    }
+                                else{
+                                      window.alert('キャンセルされました'); // 警告ダイアログを表示
+                                      return false; // 送信を中止
+                                    }
+                                    return false;
+                                }
+                        </script>
                     </div>
                 </div>
             @else
