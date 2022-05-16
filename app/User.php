@@ -70,7 +70,7 @@ class User extends Authenticatable
     public function deleteCartsGoods($goodIds) 
     {
         $userId = $this->id;
-        $this->inCarts()->where('settled_flag','=',0)->update(['settled_flag' => 1]);
+        $this->inCarts()->where('settled_flag','=',0)->update(['carts.settled_flag' => 1,]);
      }
     
     public function deleteCartsGood($goodId) 
