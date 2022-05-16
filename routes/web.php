@@ -5,19 +5,10 @@
 Route::get('/', function () {return view('welcome');});
 
 
-
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.get');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
-
-
-
-
-
-
-
-
 
 
 
@@ -29,11 +20,12 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::get('goods', 'GoodsController@index')->name('goods_index');
     Route::get('good/detail','GoodsController@detail');
     Route::get('good/detail/{good_id}','GoodsController@detail');
-    Route::post('good/changequantity', 'GoodsController@changeQuantity');
+
     Route::post('good/detail','GoodsController@addCarts');
     Route::get('/settle', 'CartsController@settle');
     Route::post('/settled', 'CartsController@settled');
     Route::get('/history', 'UsersController@history');
+    Route::post('good/changequantity', 'GoodsController@changeQuantity');
 });
 
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
