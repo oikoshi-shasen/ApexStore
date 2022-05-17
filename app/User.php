@@ -53,7 +53,7 @@ class User extends Authenticatable
     
     
     static public function deleteCartsGoods(){
-        self::myCarts()->wherePivot("settled_flag",'=',0)->update(["carts.settled_flag" => 1,]);
+        self::myCarts()->wherePivot("settled_flag",'=',0)->update(['carts.settled_flag' => 1,]);
     }
     
     public function deleteCartsGood($goodId){
@@ -105,7 +105,7 @@ class User extends Authenticatable
     
     static public function changeQuantity($good_Id,$quantity,$good_price) {
         $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
-        self::getDataMyUnSettledGood($good_Id)->update(["carts.quantity" => $quantity , "carts.sub_total" => $sub_total]);
+        self::getDataMyUnSettledGood($good_Id)->update(['carts.quantity' => $quantity , 'carts.sub_total' => $sub_total]);
     }
     
     
