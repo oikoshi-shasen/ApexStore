@@ -13,14 +13,13 @@ class UsersController extends Controller
     
     
     public function detail(){
-        $user = \Auth::user();
-        $rank = $user->rank()->rank;
-        return view('users.detail')->with('user',$user)->with('rank',$rank);
+        return view('users.detail')
+                ->with('user',User::detailUser());
     }
     
     public function history(){
-        $user = \Auth::user();
-        $historys = $user->getHistory();
-        return view('users.history')->with('historys',$historys)->with('user',$user);
+        return view('users.history')
+            ->with('historys',User::getHistory())
+            ->with('user',User::detailUser());
     }    
 }

@@ -7,16 +7,6 @@
           <link rel="stylesheet" href="css/cart_contents.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
         <script type="text/javascript"> 
-        function check(){
-    	    if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
-    		    return true; // 「OK」時は送信を実行
-    	    }
-	    else{ // 「キャンセル」時の処理
-    		    window.alert('キャンセルされました'); // 警告ダイアログを表示
-    		    return false; // 送信を中止
-    		    }
-    }
-
 </script>
         
     </head>
@@ -63,21 +53,27 @@
                         <script>
                             function func1(){
                                 let bar = {{ $neo_balance }};
-                                if(window.confirm(`あと$ ${bar} でランクアップなのにほんとにいいんですか？`))
-                                    {
-                                        if(window.confirm(`もったいない気がしますけど、いいんですか？`)){
-                                            window.alert('決済画面に進みます😊');
-                                            return true;
+                                if(bar > 0){
+                                    if(window.confirm(`あと$ ${bar} でランクアップなのにほんとにいいんですか？`))
+                                        {
+                                            if(window.confirm(`もったいない気がしますけど、いいんですか？`)){
+                                                window.alert('決済画面に進みます😊');
+                                                return true;
+                                            }
+                                            else{
+                                                window.alert(`あと$ ${bar}でランクアップです！`)
+                                                return false; 
+                                            }
                                         }
-                                        else{
-                                            window.alert(`あと$ ${bar}でランクアップです！`)
-                                            return false; 
+                                    else{
+                                          window.alert('もっと買ってくれるのうれしい😊');
+                                          return false; 
                                         }
                                     }
                                 else{
-                                      window.alert('もっと買ってくれるのうれしい😊');
-                                      return false; 
-                                    }
+                                    window.alert('ランクアップ確定やで😊');
+                                    return true; 
+                                }
                                 }
                         </script>
                     </div>

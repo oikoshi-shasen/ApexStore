@@ -23,187 +23,133 @@ class User extends Authenticatable
         'name', 'email', 'password','rank_num','total','created_at', 'first_rank_num'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
      
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
     
-    static public $judgment_value = 500000;
     
-    public function inCarts()
-    {
+    static public $judgment_value = 500000;
+
+    
+    public function inCarts(){
         return $this->belongsToMany(Good::class,'carts','user_id','good_id')
             ->withPivot(['quantity','sub_total','settled_flag']);
     }
-    
-      
-        public function countCarts() 
-    {
-        $user_Id = $this->id; 
-        return Cart::where('user_id', '=', $user_Id)->where('settled_flag', '=', 0)->count();
+
+    static public function countCarts() {
+        return Cart::where('user_id','=',\Auth::id())
+                ->where('settled_flag', '=', 0)->count();
     }
     
-    
-    public function addCarts($goodId,$quantity,$goodPrice) 
-    {
-        $rank_num = $this->rank_num;
-        $sub_total = $rank_num * $goodPrice * $quantity;
-        $this->inCarts()->attach($goodId,['quantity' => $quantity , 'sub_total' => $sub_total ,'settled_flag' => 0,]);
+    static public function addCarts($goodId,$quantity,$goodPrice) {
+        $sub_total = \Auth::user()->rank_num * $goodPrice * $quantity;
+        \Auth::user()->inCarts()->attach($goodId,['quantity' => $quantity , 'sub_total' => $sub_total ,'settled_flag' => 0,]);
     }
     
     
     
-    public function deleteCartsGoods($goodIds) 
-    {
-        $userId = $this->id;
+    public function deleteCartsGoods(){
         $this->inCarts()->wherePivot("settled_flag",'=',0)->update(["carts.settled_flag" => 1,]);
-     }
+    }
     
-    public function deleteCartsGood($goodId) 
-    {
+    public function deleteCartsGood($goodId){
         $userId = $this->id;
-        // dd($this->inCarts()->where('goods.id','=',$goodId)->get());
-        // dd($this->inCarts());
-        //dd($goodId);
         $carts_id = $this->inCarts()->wherePivot("good_id",'=',$goodId)->wherePivot("settled_flag",'=',0)->detach();
         
     }
     
-    public function clearCart()
-    {
+    public function clearCart(){
         $this->inCarts()->sync([]);
     }
     
-    public function editCarts($goodId, $quantity)
-    {
+    public function editCarts($goodId, $quantity){
         return $this->inCarts()->updateExistingPivot($goodId, ['quantity' => $quantity]);
     }
     
-    
-    
-    // public function feed_carts()
-    // {
-    //       $goods_Id = $this->inCarts()->pluck('carts.good_id')->toArray();
-    //       $goods_quantity = $this->inCarts()->pluck('carts.quantity')->toArray();
-    //       $goods = Good::whereIn('id',$goods_Id)->get();
-    // }
-    //試作機1
-    
-        public function feed_carts()
-    {
-          $user_Id = $this->id; 
-          $newtable = Good::join('carts', function ($join){
-              $join->on('goods.id', '=', 'carts.good_id');});
+    public function feed_carts(){
           return ($this->inCarts()->where('settled_flag','=',0)->get());
     }
 
-    
-    
-        public function feedGoodIds()
-    {
+    public function feedGoodIds(){
           return ($this->inCarts()->where('settled_flag','=',0)->pluck('carts.good_id')->toArray());
     }
-    
-    
     
     public function isGoodInCarts($good_Id){
          return $this->inCarts()->where('good_id', $good_Id)->where('settled_flag','=',0)->exists();
     } 
     
-    
-    
-    
-    
-    public function getGoodDetail($good_Id){
-        $user_Id = $this->id; 
-        $newtable = Good::Join('carts', function ($join){
-        $join->on('goods.id', '=', 'carts.good_id');});
-        return (
-            $newtable
-            ->where('good_id',$good_Id)
-            ->where('user_id', '=', $user_Id)
-            ->where('settled_flag', '=', 0)
-            ->get()
-                );
-    }
-    
-    
-        public function changeQuantity($good_Id,$quantity,$good_price) 
-    {
-        $user_Id = $this->id; 
-        $sub_total = $good_price * $this->rank_num * $quantity;
+    static public function getDataCartGoods(){
         $newtable = Good::leftJoin('carts', function ($join){
-        $join->on("goods.id", '=', "carts.good_id");});
-        $newtable->where("good_id",$good_Id)
-        ->where("user_id", '=', $user_Id)
-        ->where("settled_flag", '=' ,0)
-        ->update(["quantity" => $quantity , "sub_total" => $sub_total]);
+            $join->on('goods.id', '=', 'carts.good_id');});
+        return $newtable;
     }
     
-  
+    static public function getDataMyCartGoods(){
+        return self::getDataCartGoods()->where('user_id','=',\Auth::user()->id);
+    }
+    
+    static public function getDataMyCartGood($good_Id){
+        return self::getDataMyCartGoods()->where('good_id',$good_Id);
+    }
+    
+    static public function getDataMySettledGoods(){
+        return self::getDataMyCartGoods()->where('carts.settled_flag',1);
+    }
+    static public function getDataMySettledGood($good_Id){
+        return self::getDataMyCartGood($good_Id)->where('carts.settled_flag',1);
+    }
+    static public function getDataMyUnSettledGoods(){
+        return self::getDataMyCartGoods()->where('carts.settled_flag',0);
+    }
+    static public function getDataMyUnSettledGood($good_Id){
+        return self::getDataMyCartGood($good_Id)->where('carts.settled_flag',0);
+    }
+    
+    static public function getGoodDetail($good_Id){
+        $newtable = self::getDataMyCartGood($good_Id);
+        return $newtable->where('settled_flag', '=', 0)->first();
+    }
+    
+    static public function changeQuantity($good_Id,$quantity,$good_price) {
+        $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
+        self::getDataMyUnSettledGood($good_Id)->update(["quantity" => $quantity , "sub_total" => $sub_total]);
+    }
     
     
-        public function rank()
-    {
-          $user_Id = $this->id; 
+    static public function detailUser(){
           $newtable = User::join('ranks', function ($join){
               $join->on('users.rank_num', '=', 'ranks.id');});
-          return ($newtable->where('users.id', '=', $user_Id)->first());
+          return $newtable->where('users.id', '=', \Auth::id())->first();
     }
     
-    
-        public function getHistory(){
-            $newtable = Good::leftJoin('carts', function ($join){
-            $join->on('goods.id', '=', 'carts.good_id');});
-            $historys = $newtable->where('user_id', '=', $this->id)
-                                 ->where('settled_flag', '=' ,1)
+    static public function getHistory(){
+            $historys = self::getDataMySettledGoods()
                                  ->orderBy('carts.created_at', 'desc')
                                  ->get();
-            return ($historys);
+            return $historys;
     }
     
-        public function storeSum(){
-            $newtable = Good::leftJoin('carts', function ($join){
-                $join->on('goods.id', '=', 'carts.good_id');});
-                $sum = $newtable->where('user_id', '=', $this->id)
-                                 ->where('settled_flag', '=' ,1)
-                                 ->sum('sub_total');
-            User::where('id', '=', $this->id)->update(['total' => $sum ,]);
+    static public function storeSum(){
+            $sum = self::getDataMySettledGoods()->sum('sub_total');
+            User::where('id', '=', \Auth::id())->update(['total' => $sum ,]);
             return $sum;
-        }
+    }
         
-        public function promoteRank($total){
-            $rank_num = $this->rank_num;
+    static public function promoteRank($total){
             $promote_num = floor($total / Self::$judgment_value);
-            $new_rank_num = (int)($this->first_rank_num - $promote_num);
+            $new_rank_num = (int)(\Auth::user()->first_rank_num - $promote_num);
             if($new_rank_num < 1){
                 $new_rank_num = 1;
             }
-            User::where('id','=',$this->id)->update(['rank_num' => $new_rank_num]);
-        }
-    
-    
-        public function moneyOfCart(){
-            $newtable = Good::leftJoin('carts', function ($join){
-                $join->on('goods.id', '=', 'carts.good_id');});
-            $money_of_cart = $newtable->where('user_id', '=', $this->id)
-                                 ->where('settled_flag', '=' ,0)
-                                 ->sum('sub_total');
-            return $money_of_cart;
+            User::where('id','=',\Auth::id())->update(['rank_num' => $new_rank_num]);
+    }
+
+    static public function moneyOfCart(){
+            return self::getDataMyUnSettledGoods()->sum('sub_total');
         }
     
     

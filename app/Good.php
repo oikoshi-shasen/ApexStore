@@ -34,9 +34,7 @@ class Good extends Model
         return $this->belongsToMany(User::class,'carts','gooid_id','user_id');
     }
     
-    public function allCarts()
-    {
-    }
+
     
     
     
