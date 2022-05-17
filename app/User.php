@@ -116,7 +116,7 @@ class User extends Authenticatable
     
     static public function changeQuantity($good_Id,$quantity,$good_price) {
         $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
-        self::getDataMyUnSettledGood($good_Id)->update(["quantity" => $quantity , "sub_total" => $sub_total]);
+        self::getDataMyUnSettledGood($good_Id)->update(["carts.quantity" => $quantity , "carts.sub_total" => $sub_total]);
     }
     
     
