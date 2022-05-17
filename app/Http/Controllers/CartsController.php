@@ -31,7 +31,7 @@ class CartsController extends Controller
             'card_num' => ['required', 'digits_between:13,16'],
             'password' => ['required'],
             ]);
-        \Auth::user()->deleteCartsGoods();
+        User::deleteCartsGoods();
         User::promoteRank(User::storeSum());
         return view('carts.settled');
     }

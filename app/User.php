@@ -14,11 +14,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'name', 'email', 'password','rank_num','total','created_at', 'first_rank_num'
     ];
@@ -56,8 +52,8 @@ class User extends Authenticatable
     
     
     
-    public function deleteCartsGoods(){
-        $this->inCarts()->wherePivot("settled_flag",'=',0)->update(["carts.settled_flag" => 1,]);
+    static public function deleteCartsGoods(){
+        self::myCarts()->wherePivot("settled_flag",'=',0)->update(["carts.settled_flag" => 1,]);
     }
     
     public function deleteCartsGood($goodId){
@@ -84,16 +80,7 @@ class User extends Authenticatable
          return $this->inCarts()->where('good_id', $good_Id)->wherePivot('settled_flag','=',0)->exists();
     } 
     
-    // static public function getDataCartGoods(){
-    //     $newtable = Good::leftJoin('carts', function ($join){
-    //         $join->on('goods.id', '=', 'carts.good_id');});
-    //     return $newtable;
-    // }
-    
-    // static public function getDataMyCartGoods(){
-    //     return self::getDataCartGoods()->where('user_id','=',\Auth::user()->id);
-    // }
-    
+
     static public function getDataMyCartGood($good_Id){
         return self::myCarts()->where('good_id',$good_Id);
     }
