@@ -57,21 +57,27 @@
                         @endif
                     </div>
                     <div class="toSettle">
-                        <form action="/settle" method="get" >
-                            <input type="submit" id="toSettle" class="settle_btn" value="決済へ進む" >
+                        <form action="/settle" method="get" onsubmit="return func1()">
+                            <button id="toSettle" class="settle_btn" >  決済へ進む </button> 
                         </form>
                         <script>
-                            const func1 = () => {
+                            function func1(){
                                 let bar = {{ $neo_balance }};
-                                if(window.confirm('送信してよろしいですか？')==true)
+                                if(window.confirm(`あと$ ${bar} でランクアップなのにほんとにいいんですか？`))
                                     {
-                                    return true;
+                                        if(window.confirm(`もったいない気がしますけど、いいんですか？`)){
+                                            window.alert('決済画面に進みます😊');
+                                            return true;
+                                        }
+                                        else{
+                                            window.alert(`あと$ ${bar}でランクアップです！`)
+                                            return false; 
+                                        }
                                     }
                                 else{
-                                      window.alert('キャンセルされました'); // 警告ダイアログを表示
-                                      return false; // 送信を中止
+                                      window.alert('もっと買ってくれるのうれしい😊');
+                                      return false; 
                                     }
-                                    return false;
                                 }
                         </script>
                     </div>
