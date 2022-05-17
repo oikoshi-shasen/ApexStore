@@ -39,6 +39,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Good::class,'carts','user_id','good_id')
             ->withPivot(['quantity','sub_total','settled_flag']);
     }
+    
+    static  public function myCarts(){
+        return \Auth::user()->inCarts();
+    }
 
     static public function countCarts() {
         return Cart::where('user_id','=',\Auth::id())
@@ -71,47 +75,45 @@ class User extends Authenticatable
     }
     
     public function feed_carts(){
-          return ($this->inCarts()->where('settled_flag','=',0)->get());
+          return (self::myCarts()->wherePivot('settled_flag','=',0)->get());
     }
 
-    public function feedGoodIds(){
-          return ($this->inCarts()->where('settled_flag','=',0)->pluck('carts.good_id')->toArray());
-    }
+
     
     public function isGoodInCarts($good_Id){
-         return $this->inCarts()->where('good_id', $good_Id)->where('settled_flag','=',0)->exists();
+         return $this->inCarts()->where('good_id', $good_Id)->wherePivot('settled_flag','=',0)->exists();
     } 
     
-    static public function getDataCartGoods(){
-        $newtable = Good::leftJoin('carts', function ($join){
-            $join->on('goods.id', '=', 'carts.good_id');});
-        return $newtable;
-    }
+    // static public function getDataCartGoods(){
+    //     $newtable = Good::leftJoin('carts', function ($join){
+    //         $join->on('goods.id', '=', 'carts.good_id');});
+    //     return $newtable;
+    // }
     
-    static public function getDataMyCartGoods(){
-        return self::getDataCartGoods()->where('user_id','=',\Auth::user()->id);
-    }
+    // static public function getDataMyCartGoods(){
+    //     return self::getDataCartGoods()->where('user_id','=',\Auth::user()->id);
+    // }
     
     static public function getDataMyCartGood($good_Id){
-        return self::getDataMyCartGoods()->where('good_id',$good_Id);
+        return self::myCarts()->where('good_id',$good_Id);
     }
     
     static public function getDataMySettledGoods(){
-        return self::getDataMyCartGoods()->where('carts.settled_flag',1);
+        return self::myCarts()->wherePivot('settled_flag',1);
     }
     static public function getDataMySettledGood($good_Id){
-        return self::getDataMyCartGood($good_Id)->where('carts.settled_flag',1);
+        return self::getDataMyCartGood($good_Id)->wherePivot('settled_flag',1);
     }
     static public function getDataMyUnSettledGoods(){
-        return self::getDataMyCartGoods()->where('carts.settled_flag',0);
+        return self::myCarts()->wherePivot('settled_flag',0);
     }
     static public function getDataMyUnSettledGood($good_Id){
-        return self::getDataMyCartGood($good_Id)->where('carts.settled_flag',0);
+        return self::getDataMyCartGood($good_Id)->wherePivot('settled_flag',0);
     }
     
     static public function getGoodDetail($good_Id){
         $newtable = self::getDataMyCartGood($good_Id);
-        return $newtable->where('settled_flag', '=', 0)->first();
+        return $newtable->wherePivot('settled_flag', '=', 0)->first();
     }
     
     static public function changeQuantity($good_Id,$quantity,$good_price) {
@@ -130,6 +132,7 @@ class User extends Authenticatable
             $historys = self::getDataMySettledGoods()
                                  ->orderBy('carts.created_at', 'desc')
                                  ->get();
+                    
             return $historys;
     }
     
@@ -149,7 +152,7 @@ class User extends Authenticatable
     }
 
     static public function moneyOfCart(){
-            return self::getDataMyUnSettledGoods()->sum('sub_total');
+            return self::getDataMyUnSettledGoods()->sum('carts.sub_total');
         }
     
     

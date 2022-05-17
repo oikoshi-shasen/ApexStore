@@ -55,7 +55,7 @@
                             <div class="dropdown">
                                 <select class="dropdown-select" name="quantity">
                                     @for($i=1;$i<=64;$i++)
-                                        @if($i==$good->quantity)
+                                        @if($i==$good->pivot->quantity)
                                             <option value="{{$i}}" selected>
                                                 {{$i}}個
                                             </option>
@@ -68,8 +68,8 @@
                                 </select>
                             </div>
                                 <input type="submit" class="submit" value="カートに入れなおす">
-
-                                <input type="hidden" name="good_id" value={{$good->good_id}}>
+                                
+                                <input type="hidden" name="good_id" value={{$good->id}}>
                                  <input type="hidden" name="good_price" value={{$good->price}}>
                             </form>
                 

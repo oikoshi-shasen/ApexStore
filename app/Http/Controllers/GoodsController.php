@@ -50,6 +50,7 @@ class GoodsController extends Controller
     {   
         User::addCarts($request->good_id,$request->quantity,$request->good_price);
         $good = User::getGoodDetail($request->good_id);
+
         return view('goods.detail')
                 ->with('good',$good)
                 ->with('added_quantity',$request->quantity)
@@ -62,7 +63,7 @@ class GoodsController extends Controller
         public function changeQuantity(Request $request)
     {   
          User::changeQuantity($request->good_id,$request->quantity,$request->good_price); 
-         $good = User::getGoodDetail($request->good_id);
+        $good = User::getGoodDetail($request->good_id);
         return view('goods.detail')
                 ->with('good',$good)
                 ->with('added_quantity',$request->quantity)
