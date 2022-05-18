@@ -50,11 +50,11 @@ class User extends Authenticatable
         \Auth::user()->inCarts()->attach($goodId,['quantity' => $quantity , 'sub_total' => $sub_total ,'settled_flag' => 0,]);
     }
     
+
     
-    
-    static public function deleteCartsGoods(){
-        self::myCarts()->wherePivot("settled_flag",'=',0)->update(['carts.settled_flag' => 1,]);
-    }
+    // static public function deleteCartsGoods(){
+    //     self::myCarts()->wherePivot("settled_flag",'=',0)->update(['carts.settled_flag' => 1,]);
+    // }
     
     public function deleteCartsGood($goodId){
         $userId = $this->id;
@@ -110,9 +110,16 @@ class User extends Authenticatable
     
     static public function changeQuantity($good_Id,$quantity,$good_price) {
         $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
-        self::myCarts()->wherePivot('settled_flag',0)->updateExistingPivot($good_Id, ['quantity' => $quantity,'sub_total'=>$sub_total]);;
+        self::myCarts()->wherePivot('settled_flag',0)->updateExistingPivot($good_Id, ['quantity' => $quantity,'sub_total'=>$sub_total]);
     }
     
+        static public function deleteCartsGoods(){
+        $settled_goods = self::myCarts()->wherePivot("settled_flag",'=',0);
+        $settled_goods_id = $settled_goods->get(['good_id'])->toArray();
+            foreach($settled_goods_id as $settled_good_id){
+                $settled_goods->updateExistingPivot($settled_good_id['good_id'],['settled_flag' => 1]);
+            }
+    }
     
     // static public function changeQuantity($good_Id,$quantity,$good_price) {
     //     $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
