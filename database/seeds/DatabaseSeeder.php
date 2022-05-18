@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
          DB::table('users')->insert([
         [
             'name' => 'Yudai',
-            'first_rank_num' => 2,
+            'first_rank_num' => '1',
             'email' => 'yudai_sasaki@fandmnet.com',
             'password' => Hash::make('00000000'),
             'rank_num' => '1',

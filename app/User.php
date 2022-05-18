@@ -33,7 +33,7 @@ class User extends Authenticatable
     
     public function inCarts(){
         return $this->belongsToMany(Good::class,'carts','user_id','good_id')
-            ->withPivot(['quantity','sub_total','settled_flag']);
+            ->withPivot(['quantity','sub_total','settled_flag','id','good_id']);
     }
     
     static  public function myCarts(){
@@ -103,11 +103,22 @@ class User extends Authenticatable
         return $newtable->wherePivot('settled_flag', '=', 0)->first();
     }
     
+    // static public function changeQuantity($good_Id,$quantity,$good_price) {
+    //     $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
+    //     self::getDataMyUnSettledGood($good_Id)->update(['carts.quantity' => $quantity , 'carts.sub_total' => $sub_total]);
+    // }
+    
     static public function changeQuantity($good_Id,$quantity,$good_price) {
         $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
-        self::getDataMyUnSettledGood($good_Id)->update(['carts.quantity' => $quantity , 'carts.sub_total' => $sub_total]);
+        self::myCarts()->wherePivot('settled_flag',0)->updateExistingPivot($good_Id, ['quantity' => $quantity,'sub_total'=>$sub_total]);;
     }
     
+    
+    // static public function changeQuantity($good_Id,$quantity,$good_price) {
+    //     $sub_total = $good_price * \Auth::user()->rank_num * $quantity;
+    //     $pivot_id = self::myCarts()->wherePivot('good_id',$good_Id)->wherePivot('settled_flag',0)->first()->pivot->id;
+    //     self::myCarts()->updateExistingPivot($pivot_id, ['quantity' => $quantity,'sub_total'=>$sub_total]);;
+    // }
     
     static public function detailUser(){
           $newtable = User::join('ranks', function ($join){
