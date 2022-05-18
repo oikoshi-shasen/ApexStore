@@ -13,7 +13,30 @@
     <body>
         @include('common.navbar_2')
           <main>
+                <div class="search-area">
+                    <div class="search-form">
+                        <form id="hana" action="/search" method="post" class="none">
+                            @csrf
+                            <input type="text" placeholder="検索ワード" class="search-text" name="search_word">
+                            <input type="submit" class="search-btn" value="検索する">
+                        </form>
+                    </div>
+                    <a id="mimi">
+                        <i class="fas fa-search" style="color:white;"></i>
+                    </a>
+                </div>
             <div class="container">
+
+                
+                @if($goods->isEmpty())
+                <div class="no-item">
+                    <h1 class="back-index">検索条件に合う商品はありません。</h1>
+                    <button class="back-index submit" onclick="location.href='/goods'">商品一覧に戻る</button>
+                </div>
+                @endif
+
+          
+                
                 <div class="flex card-area">
                     @foreach($goods as $good)
                         <div class="card_item">
@@ -38,3 +61,5 @@
 
 
 <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="{{asset('js/main.js')}}"></script>

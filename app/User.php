@@ -137,7 +137,6 @@ class User extends Authenticatable
             $historys = self::getDataMySettledGoods()
                                  ->orderBy('carts.created_at', 'desc')
                                  ->get();
-                    
             return $historys;
     }
     
@@ -159,7 +158,6 @@ class User extends Authenticatable
     static public function moneyOfCart(){
             return self::getDataMyUnSettledGoods()->sum('carts.sub_total');
         }
-    
     
     
     

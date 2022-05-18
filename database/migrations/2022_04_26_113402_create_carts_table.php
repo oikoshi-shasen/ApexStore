@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCartsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
@@ -22,20 +18,12 @@ class CreateCartsTable extends Migration
             $table->tinyInteger('settled_flag')->comment('購入済なら1　未会計なら0');;
             $table->timestamp('updated_at')->useCurrent()->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable(); 
-            
-                        // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('good_id')->references('id')->on('goods')->onDelete('cascade');
-            
-         
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('carts');

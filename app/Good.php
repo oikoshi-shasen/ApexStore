@@ -25,7 +25,9 @@ class Good extends Model
     
     
     
-    
+    static public function serchGoods($serch_word){
+        return Good::where('name', 'like', "%$serch_word%")->get();
+    }
     
     
     

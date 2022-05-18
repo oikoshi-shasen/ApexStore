@@ -20,8 +20,7 @@
             </div>
             <div class="detail_btn">
                 @if($exist==false)
-                <form method="post">
-                            <form method="post" id='good_quantity' action="/good/detail">
+                            <form action={{asset('/good/detail')}} method="post" id="good_quantity" >
                                 @csrf
                             <div class="dropdown">
                                 <select class="dropdown-select" name="quantity">

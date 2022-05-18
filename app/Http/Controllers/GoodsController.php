@@ -62,11 +62,17 @@ class GoodsController extends Controller
     
         public function changeQuantity(Request $request)
     {   
-         User::changeQuantity($request->good_id,$request->quantity,$request->good_price); 
+        User::changeQuantity($request->good_id,$request->quantity,$request->good_price); 
         $good = User::getGoodDetail($request->good_id);
         return view('goods.detail')
                 ->with('good',$good)
                 ->with('added_quantity',$request->quantity)
                 ->with('exist',true);;
     }
+        
+        public function serch(Request $request){
+            $searched_good = Good::serchGoods($request->search_word);
+            return view('goods.index')
+            ->with('goods',$searched_good);
+        }
 }

@@ -26,6 +26,7 @@ class CartsController extends Controller
                 ->with('goods',\Auth::user()->feed_carts());
     }
     
+    
     public function settled(Request $request){
         $request->validate([
             'card_num' => ['required', 'digits_between:13,16'],

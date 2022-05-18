@@ -6,8 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
           <link rel="stylesheet" href="css/cart_contents.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-        <script type="text/javascript"> 
-</script>
+
         
     </head>
 
@@ -99,3 +98,4 @@
 
 
 <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+<script src="{{asset('js/main.js')}}"></script>

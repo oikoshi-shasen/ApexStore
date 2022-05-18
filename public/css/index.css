@@ -23,8 +23,21 @@ header{
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
 .card-area{
     margin:50px auto;
+}
+.no-item{
+    margin:0 auto;
+    text-align:center;
+}
+
+.no-item h1{
+    color:white;
+    font-weight: bold;
+}
+.no-item button{
+    margin-top: 15px;
 }
 .card_item{
     position: relative;
@@ -84,4 +97,16 @@ h3{
   box-shadow    : none;        /* カーソル時の影消去 */
   color         : rgba(0, 0, 102, 0.95);     /* 背景色     */
   background    : #ffffff;     /* 文字色     */
+}
+
+.search-area{
+    margin-top:35px;
+    margin-right: 20px;
+    display: flex;
+    justify-content:right;
+}
+
+.search-form{
+    transform: translate(0px,-15px);
+    margin-right:20px;
 }
