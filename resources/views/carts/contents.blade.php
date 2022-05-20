@@ -41,7 +41,12 @@
                             @if($neo_balance > 0)
                                 <h2>あと${{$neo_balance}}でランクアップ！</h2>
                             @else
-                                <h3>{{ceil((abs($neo_balance)/App\User::$judgment_value)) }}ランクアップ確定！</h3>
+                                <?php $up_num = ceil(abs($neo_balance)/App\User::$judgment_value) ?>
+                                @if(Auth::user()->rank_num - $up_num >= 1)
+                                    <h3>{{$up_num}}ランクアップ確定！</h3>
+                                @else
+                                    <h3>{{Auth::user()->rank_num - 1}}ランクアップ確定！</h3>  
+                                @endif
                             @endif
                         @endif
                     </div>
@@ -52,27 +57,34 @@
                         <script>
                             function func1(){
                                 let bar = {{ $neo_balance }};
-                                if(bar > 0){
-                                    if(window.confirm(`あと$ ${bar} でランクアップなのにほんとにいいんですか？`))
+                                let rank_num = {{ Auth::user()->rank_num }};
+                                if(rank_num >= 2)
+                                {
+                                    if(bar > 0)
+                                    {
+                                        if(window.confirm(`あと$ ${bar} でランクアップなのにほんとにいいんですか？`))
                                         {
-                                            if(window.confirm(`もったいない気がしますけど、いいんですか？`)){
+                                            if(window.confirm(`もったいない気がしますけど、いいんですか？`))
+                                            {
                                                 window.alert('決済画面に進みます😊');
                                                 return true;
                                             }
-                                            else{
+                                            else
+                                            {
                                                 window.alert(`あと$ ${bar}でランクアップです！`)
                                                 return false; 
                                             }
                                         }
+                                        else{
+                                              window.alert('もっと買ってくれるのうれしい😊');
+                                              return false; 
+                                            }
+                                    }
                                     else{
-                                          window.alert('もっと買ってくれるのうれしい😊');
-                                          return false; 
+                                        window.alert('ランクアップ確定やで😊');
+                                        return true; 
                                         }
                                     }
-                                else{
-                                    window.alert('ランクアップ確定やで😊');
-                                    return true; 
-                                }
                                 }
                         </script>
                     </div>
@@ -81,7 +93,7 @@
                 <div class="non-goods">
                     <h1>商品がありません</h1>
                         @if(Auth::user()->rank_num != 1)
-                 <h3>あと${{$neo_balance}}でランクアップ！</h3>
+                            <h3>あと${{$neo_balance}}でランクアップ！</h3>
                         @endif
                     <div class="to-goods-index">
                         <form action="/goods" method="get">

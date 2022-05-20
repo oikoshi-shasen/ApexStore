@@ -26,16 +26,12 @@
                     </a>
                 </div>
             <div class="container">
-
-                
                 @if($goods->isEmpty())
                 <div class="no-item">
                     <h1 class="back-index">検索条件に合う商品はありません。</h1>
                     <button class="back-index submit" onclick="location.href='/goods'">商品一覧に戻る</button>
                 </div>
                 @endif
-
-          
                 
                 <div class="flex card-area">
                     @foreach($goods as $good)
@@ -47,11 +43,13 @@
                                 <input type="hidden" name="good_id" value={{$good->id}}>
                                 <input type="submit" class="submit" value="詳細">
                             </form>
-                        
                         </div>
-                        
-
                     @endforeach
+                </div>
+            </div>
+            <div class="flex">
+                <div class="pagin">
+                    {{ $goods->links() }}
                 </div>
             </div>
         </main>

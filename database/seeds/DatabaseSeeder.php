@@ -47,7 +47,37 @@ class DatabaseSeeder extends Seeder
             'price' => 1000,
             'picture' => 'img/Ultimate.jpg',
             'explanation' => ' (アルティメットアビリティを20%回復する。)',
-        ]
+        ],
+                [
+            'name'=> 'オイルヒーター',
+            'price' => 3000,
+            'picture' => 'img/kaden_oil_heater.png',
+            'explanation' => ' (中のオイルを温めて使う暖房器具。)',
+        ],
+        [
+            'name'=> 'スマートウォッチ',
+            'price' => 5000,
+            'picture' => 'img/sports_katsudouryoukei.png',
+            'explanation' => ' (運動量、消費カロリー、脈拍などを計測することができるトラッカー（スマートウォッチ）。)',
+        ],
+        [
+            'name'=> '懐中電灯',
+            'price' => 2000,
+            'picture' => 'img/kaden_kaichu_dentou.png',
+            'explanation' => ' (シンプルな懐中電灯（ハンディライト）。)',
+        ],
+        [
+            'name'=> '置き時計',
+            'price' => 1300,
+            'picture' => 'img/kaden_digital_tokei.png',
+            'explanation' => ' (デジタル数字が表示された置き時計のイラストです。)',
+        ],
+        [
+            'name'=> 'テレビ',
+            'price' => 8000,
+            'picture' => 'img/display_monitor_tv.png',
+            'explanation' => ' (風景が映し出されているテレビ（ディスプレイ）のイラストです。)',
+        ],
         ]);
          DB::table('ranks')->insert([
         [

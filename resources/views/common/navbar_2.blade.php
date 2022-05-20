@@ -72,14 +72,6 @@
                 </li>
                 @endif
 
-                
-      
-                
-                <li class="nav-item nav_img">
-                    <a href="/history">
-                       <i class="fas fa-history" style="color:white;"></i>
-                    </a>
-                </li>
                 <li class="nav-item nav_img">
                     <a href="/user">
                         <!--<i class="fas fa-user" style="color:#fff;"></i>-->
@@ -87,15 +79,27 @@
                     </a>
                 </li>
                 <li class="nav-item nav_img">
+                    <a href="/history">
+                       <i class="fas fa-history" style="color:white;"></i>
+                    </a>
+                </li>
+                <li class="nav-item nav_img">
                     <a href="/carts">
                         <i class="fas fa-shopping-cart" style="color:#fff;"></i>
                     </a>
                 </li>
-                 <li class="nav-item">{!! link_to_route('logout.get', 'Logout', [], ['class' => 'nav-link']) !!}</li>
+                <li class="nav-item nav_img">
+                    <a href="/ranking">
+                        <i class="fas fa-crown" style="color:#fff;"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                        Logout
+                    </a>
+                </li>
             </ul>
-            
         </div>
-
     </nav>
 </header>
 

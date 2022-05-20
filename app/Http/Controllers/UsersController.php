@@ -8,10 +8,6 @@ use App\User;
 class UsersController extends Controller
 {
     
-    
-    
-    
-    
     public function detail(){
         return view('users.detail')
                 ->with('user',User::detailUser());
@@ -22,4 +18,13 @@ class UsersController extends Controller
             ->with('historys',User::getHistory())
             ->with('user',User::detailUser());
     }    
+    
+    public function topPage(){
+        if (\Auth::check()==true){
+            return redirect()->route('goods_index');
+        } 
+        else{
+            return view('welcome');
+        }
+    }
 }

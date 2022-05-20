@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Rank;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -72,4 +73,19 @@ class RegisterController extends Controller
             'first_rank_num' => $data['rank_num'],
         ]);
     }
+    
+    /**
+     * RegistersUsersトレイトのメソッドをオーバーライド
+     */
+     
+    
+    public function showRegistrationForm()
+    {
+        $ranks = Rank::all()->pluck('rank', 'rank_num');
+        
+        return view('auth.register')->with('ranks',$ranks);
+    }
+    
+    
+    
 }

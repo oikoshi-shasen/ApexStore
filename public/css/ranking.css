@@ -1,0 +1,78 @@
+body{
+    background-image: url('../img/ranking.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.flex{
+    display: flex;
+}
+.ranking{
+    max-width:1000px;
+    margin:0 auto;
+    margin-top:50px;
+    
+}
+.top-card {
+    width:75%;
+    margin: 0 auto;
+    background: rgba( 255, 255, 255, 0.65 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.55 );
+    border-radius: 10px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+}
+.top-name {
+    text-align:center;
+}
+.top-name h1{
+ 
+}
+.top-picture{
+    width:50%;
+    margin:0 auto;
+    text-align:center;
+}
+.img{
+    width:100%;
+}
+.quantity{
+    text-align: center;
+    margin-top: 20px;
+}
+.bottom-card{
+    justify-content:space-between;
+    max-height:40%;
+    width:75%;
+    margin: 0 auto;
+    margin-top:20px;
+        
+}
+.well-card{
+    width:48.5%;
+    background: rgba( 255, 255, 255, 0.65 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.55 );
+    border-radius: 10px;
+    border: 5px solid rgba( 255, 255, 255, 0.18 );
+}
+.well-name{
+    text-align: center;
+}
+.well-name h2{
+    
+}
+.well-picture{
+    margin:0 auto;
+    text-align:center;
+    height: 60%;
+}
+.well-picture img{
+    height:100%;
+    width:auto;
+}
+.white{
+    color:white;
+}
+h1 h2 h3{
+    font-weight: bold;
+}

@@ -19,21 +19,16 @@ class GoodsController extends Controller
     
    public function index(){
         return view('goods.index')
-            ->with('goods',Good::all());;
+            ->with('goods',Good::paginate(6));
     }
     
-    
-    
-    
-
     public function create(Request $request){   
         $good = new Good;
         $good -> addGood($request);
         return view('goods.create');
     }
     
-    public function detail(Request $request)
-    {   
+    public function detail(Request $request){   
         $isExist = \Auth::user()->isGoodInCarts($request->good_id);
         if($isExist==false){
             $good = Good::findOrFail($request->good_id);
@@ -46,11 +41,9 @@ class GoodsController extends Controller
 
     
     
-        public function addCarts(Request $request)
-    {   
+    public function addCarts(Request $request){   
         User::addCarts($request->good_id,$request->quantity,$request->good_price);
         $good = User::getGoodDetail($request->good_id);
-
         return view('goods.detail')
                 ->with('good',$good)
                 ->with('added_quantity',$request->quantity)
@@ -60,8 +53,7 @@ class GoodsController extends Controller
     
     
     
-        public function changeQuantity(Request $request)
-    {   
+    public function changeQuantity(Request $request){   
         User::changeQuantity($request->good_id,$request->quantity,$request->good_price); 
         $good = User::getGoodDetail($request->good_id);
         return view('goods.detail')
@@ -70,9 +62,14 @@ class GoodsController extends Controller
                 ->with('exist',true);;
     }
         
-        public function serch(Request $request){
-            $searched_good = Good::serchGoods($request->search_word);
-            return view('goods.index')
-            ->with('goods',$searched_good);
-        }
+    public function serch(Request $request){
+        $searched_good = Good::serchGoods($request->search_word);
+        return view('goods.index')
+                ->with('goods',$searched_good);
+    }
+    
+    public function ranking(){
+        $rankings = Good::getRanking();
+        return view('goods.ranking')->with('rankings',$rankings);
+    }
 }
